@@ -18,7 +18,7 @@ jobs:
 
       - name: Update README
         run: |
-          sed -i '/### Resources:/a \
+          sed -i '/Resources:/a \
           - ${github.event.head_commit.message} || ${github.event.commits[][message]}' README.md
 
           git config --global user.name '${{ github.actor }}'
