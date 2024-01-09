@@ -1,1 +1,3 @@
 ﻿# Lecture Notes
+
+### Resources:

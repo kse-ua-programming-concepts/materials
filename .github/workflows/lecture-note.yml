@@ -1,0 +1,32 @@
+﻿name: Update README on Lecture Notes Changes
+
+on:
+  push:
+    paths:
+      - 'lecture-notes/**'
+    branches-ignore:
+      - 'main'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update README
+        run: |
+          sed -i '/### Resources:/a \
+          ${GITHUB_ACTOR}: ${GITHUB_EVENT_PATH}' README.md
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name '${{ github.actor }}'
+          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+          git add README.md
+          git commit -m "Update README based on changes in lecture-notes"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
